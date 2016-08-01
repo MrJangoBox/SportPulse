@@ -44,9 +44,10 @@ angular.module('sauveApp.controllers', ['sauveApp.services'])
     $scope.user = {
         email: "",
         password: "",
-        name: ""
+        firstName: "",
+        lastName: ""
     };
-    
+
     $rootScope.showMenuButton = function () {
                 return "false";
             };
@@ -54,8 +55,9 @@ angular.module('sauveApp.controllers', ['sauveApp.services'])
     $scope.createUser = function () {
         var email = this.user.email;
         var password = this.user.password;
-        var uName = this.user.name;
-        if(!email || !password || !uName) {
+        var uFirstName = this.user.firstName;
+        var uLastName = this.user.lastName;
+        if(!email || !password || !uFirstName || uLastName) {
             $rootScope.notify("Please enter valid data");
             return false;
         }
@@ -63,7 +65,8 @@ angular.module('sauveApp.controllers', ['sauveApp.services'])
         API.signup({
             email: email,
             password: password,
-            name: uName
+            firstName: uFirstName,
+            lastName: uFirstName
         }).success(function (data) {
             $rootScope.setToken(email); // create a session kind of thing on the client side
             $rootScope.hide();
